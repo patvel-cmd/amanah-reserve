@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanah Reserve — Trusted by Design</title>
+    <meta name="description" content="Sharia-compliant stablecoin savings. Halal yield, full transparency, non-custodial.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --evergreen: #0A382B;
+            --evergreen-light: #0d4435;
+            --evergreen-dark: #072a20;
+            --gold: #C9A24A;
+            --gold-light: #d4b36a;
+            --gold-muted: rgba(201, 162, 74, 0.15);
+            --cream: #FDFBF7;
+            --white: #FFFFFF;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --text-light: rgba(255,255,255,0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 400;
+            color: var(--text-primary);
+            background: var(--cream);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        .serif {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 400;
+        }
+
+        /* Geometric Pattern Background */
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A24A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 56, 43, 0.97);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.75rem;
+            background: var(--gold);
+            color: var(--evergreen) !important;
+            border-radius: 2px;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--evergreen) 0%, var(--evergreen-dark) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(201, 162, 74, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(201, 162, 74, 0.1);
+            border: 1px solid rgba(201, 162, 74, 0.3);
+            border-radius: 50px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-badge span {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            padding: 1.1rem 2.5rem;
+            background: var(--gold);
+            color: var(--evergreen);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(201, 162, 74, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1.1rem 2.5rem;
+            background: transparent;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: var(--evergreen-dark);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(201, 162, 74, 0.2);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 7rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            color: var(--evergreen);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: var(--white);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: var(--gold-muted);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            color: var(--evergreen);
+            font-weight: 500;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            color: var(--evergreen);
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .step-connector {
+            position: absolute;
+            top: 5.5rem;
+            right: -1.5rem;
+            width: 3rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .step:last-child .step-connector {
+            display: none;
+        }
+
+        /* Features */
+        .features {
+            background: var(--cream);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 4px;
+            border: 1px solid rgba(10, 56, 43, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(10, 56, 43, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold-muted);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--evergreen);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            color: var(--evergreen);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Governance */
+        .governance {
+            background: var(--evergreen);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .governance .pattern-overlay {
+            opacity: 0.02;
+        }
+
+        .governance .section-header h2 {
+            color: var(--white);
+        }
+
+        .governance .section-header p {
+            color: var(--text-light);
+        }
+
+        .governance-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .governance-text h3 {
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .governance-text p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .governance-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .governance-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .governance-list svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .governance-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .seal {
+            width: 280px;
+            height: 280px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .seal::before {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid rgba(201, 162, 74, 0.3);
+            border-radius: 50%;
+        }
+
+        .seal-icon {
+            width: 50px;
+            height: 50px;
+            fill: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .seal h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .seal p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--white);
+            border: 1px solid rgba(10, 56, 43, 0.1);
+            border-radius: 4px;
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            color: var(--evergreen);
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .waitlist-form input {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 1px solid rgba(10, 56, 43, 0.2);
+            border-radius: 2px;
+            width: 300px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .waitlist-form button {
+            padding: 1rem 2rem;
+            background: var(--evergreen);
+            color: var(--white);
+            border: none;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .waitlist-form button:hover {
+            background: var(--evergreen-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--evergreen-dark);
+            padding: 4rem 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+
+        .footer-col h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .step-connector {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .governance-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .governance-list li {
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .trust-bar {
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Amanah<span>Reserve</span></a>
+        <div class="nav-links">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="#governance">Governance</a>
+            <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="pattern-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#C9A24A"/>
+                </svg>
+                <span>Sharia-Certified</span>
+            </div>
+            <h1>Your wealth,<br>held in <em>trust</em></h1>
+            <p class="hero-subtitle">The first non-custodial savings vault designed for Muslims. Earn halal yield on your stablecoins with complete transparency and scholarly oversight.</p>
+            <div class="hero-cta-group">
+                <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
+                <a href="#how-it-works" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Sharia-Certified</span>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>Non-Custodial</span>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            <span>Audited Smart Contracts</span>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Fully Transparent</span>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <span class="section-label">Simple & Secure</span>
+            <h2>How Amanah Reserve Works</h2>
+            <p>A straightforward path to halal yield. No complexity, no hidden mechanisms—just transparent, Sharia-compliant savings.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Deposit</h3>
+                <p>Connect your wallet and deposit USDT into the Amanah Reserve vault. You retain full control of your assets at all times.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Earn</h3>
+                <p>Your funds generate yield through Sharia-compliant liquidity provision—earning trading fees, not interest.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Withdraw</h3>
+                <p>Access your savings anytime. No lock-ups, no penalties. Your money remains yours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span class="section-label">Why Amanah Reserve</span>
+            <h2>Built on Principles,<br>Powered by Technology</h2>
+            <p>We combine the wisdom of Islamic finance with the transparency of blockchain to create something new—savings you can trust.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Genuine Sharia Compliance</h3>
+                <p>Not just a label. Our yield mechanism has been structured from the ground up to avoid riba (interest), with ongoing scholarly oversight and quarterly compliance reports.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                </div>
+                <h3>Your Keys, Your Coins</h3>
+                <p>Non-custodial architecture means you never give up control. Your assets remain in smart contracts you can verify—not in our hands.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </div>
+                <h3>Radical Transparency</h3>
+                <p>See exactly where every dollar is deployed. Real-time on-chain dashboard shows fund allocation, yield sources, and performance—nothing hidden.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3>Security First</h3>
+                <p>Audited smart contracts, battle-tested protocols, and conservative yield strategies. We prioritize the safety of your capital above all else.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Governance -->
+    <section class="governance" id="governance">
+        <div class="pattern-overlay"></div>
+        <div class="section-header">
+            <span class="section-label">Sharia Governance</span>
+            <h2>Trusted by Design</h2>
+            <p>Our commitment to compliance isn't a marketing checkbox—it's the foundation of everything we build.</p>
+        </div>
+        <div class="governance-content">
+            <div class="governance-text">
+                <h3>Independent Scholarly Oversight</h3>
+                <p>Amanah Reserve operates under the guidance of qualified Islamic finance scholars who review our protocols, yield mechanisms, and operational practices.</p>
+                <ul class="governance-list">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        <span>Formal Fatwa certification on yield structure</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        <span>Quarterly Sharia compliance reviews</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        <span>Public compliance reports</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        <span>Transparent fee structure (no hidden charges)</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="governance-visual">
+                <div class="seal">
+                    <svg class="seal-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <h4>Sharia Certified</h4>
+                    <p>Independent Advisory Board</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="waitlist">
+        <div class="cta-box">
+            <h2>Be First in Line</h2>
+            <p>Join the waitlist for early access to Amanah Reserve. Be part of a new era in halal wealth preservation.</p>
+            <form class="waitlist-form" action="#" method="POST">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">Amanah<span>Reserve</span></a>
+                <p>Sharia-compliant stablecoin savings. Built on trust, powered by transparency.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="#governance">Governance</a>
+                <a href="#">Documentation</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Risk Disclosure</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 Amanah Reserve. All rights reserved.</span>
+            <span>Trusted by design.</span>
+        </div>
+    </footer>
+
+    <!-- Scroll Effect for Nav -->
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+</html>
