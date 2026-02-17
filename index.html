@@ -769,47 +769,53 @@
         We are opening access in waves, starting with those who've been waiting longest. Join the waitlist and we will notify you when your spot is ready.
       </p>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           MAILCHIMP FORM
-           Instructions:
-           1. Log into Mailchimp → Audience → Signup Forms → Embedded Forms
-           2. Copy your form action URL (looks like: https://xyz.us1.list-manage.com/subscribe/post?u=xxx&id=xxx)
-           3. Replace YOUR_MAILCHIMP_FORM_ACTION_URL below with that URL
-           4. Optionally replace YOUR_UNIQUE_ID with the unique hidden input value from your Mailchimp form
-      ═══════════════════════════════════════════════════════════ -->
-      <div id="mc_embed_signup">
-        <form
-          action="https://amanahreserve.us10.list-manage.com/subscribe/post?u=1140b21de393bb7321d1c1f26&amp;id=a53e790a28&amp;f_id=00e518e2f0"
-          method="post"
-          id="mc-embedded-subscribe-form"
-          name="mc-embedded-subscribe-form"
-          target="_blank"
-          novalidate
-        >
-          <div class="mc-field-group">
-            <input
-              type="email"
-              name="EMAIL"
-              id="mce-EMAIL"
-              placeholder="Your email address"
-              required
-            />
-            <!-- Mailchimp bot prevention - do not remove -->
-            <div style="position:absolute;left:-5000px;" aria-hidden="true">
-              <input type="text" name="b_1140b21de393bb7321d1c1f26_a53e790a28" tabindex="-1" value="" />
+      <!-- Form state -->
+      <div id="waitlist-form-wrap">
+        <div id="mc_embed_signup">
+          <form
+            action="https://amanahreserve.us10.list-manage.com/subscribe/post?u=1140b21de393bb7321d1c1f26&amp;id=a53e790a28&amp;f_id=00e518e2f0"
+            method="post"
+            id="mc-embedded-subscribe-form"
+            name="mc-embedded-subscribe-form"
+            target="mc-hidden-iframe"
+            novalidate
+          >
+            <div class="mc-field-group">
+              <input
+                type="email"
+                name="EMAIL"
+                id="mce-EMAIL"
+                placeholder="Your email address"
+                required
+              />
+              <div style="position:absolute;left:-5000px;" aria-hidden="true">
+                <input type="text" name="b_1140b21de393bb7321d1c1f26_a53e790a28" tabindex="-1" value="" />
+              </div>
+              <button type="submit" name="subscribe" id="mc-embedded-subscribe">
+                Notify Me
+              </button>
             </div>
-            <button type="submit" name="subscribe" id="mc-embedded-subscribe">
-              Notify Me
-            </button>
-          </div>
-          <div id="mce-responses">
-            <div id="mce-error-response"></div>
-            <div id="mce-success-response" style="display:none;"></div>
-          </div>
-        </form>
+            <div id="mce-error-response" style="display:none; color:#f87171; font-size:13px; margin-top:10px; text-align:center;"></div>
+          </form>
+          <iframe name="mc-hidden-iframe" style="display:none;"></iframe>
+        </div>
+        <p class="mc-disclaimer">No spam. No token sales. Just a notification when access opens.</p>
       </div>
 
-      <p class="mc-disclaimer">No spam. No token sales. Just a notification when access opens.</p>
+      <!-- Success state -->
+      <div id="waitlist-success" style="display:none; max-width:480px; margin:40px auto 0;">
+        <div style="border:1px solid rgba(13,148,136,0.4); border-left:3px solid var(--teal); background:rgba(13,148,136,0.07); padding:40px 36px; text-align:center;">
+          <svg viewBox="0 0 60 60" width="48" height="48" style="margin:0 auto 24px; display:block;">
+            <rect x="10" y="10" width="40" height="40" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <rect x="10" y="10" width="40" height="40" fill="none" stroke="#0d9488" stroke-width="1.5" transform="rotate(45 30 30)"/>
+            <circle cx="30" cy="30" r="4" fill="#c9a84c"/>
+          </svg>
+          <p style="font-family:'Cinzel', serif; font-size:20px; letter-spacing:0.1em; color:var(--cream); margin-bottom:12px;">You are on the list.</p>
+          <p style="font-family:'Cormorant Garamond', serif; font-size:17px; font-style:italic; font-weight:300; color:var(--teal-light); margin-bottom:20px;">We will be in touch when access opens.</p>
+          <p style="font-size:13px; color:var(--gray); line-height:1.7;">Check your inbox for a confirmation email.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -831,13 +837,14 @@
     </div>
   </footer>
 
-  <!-- Mailchimp validation script (optional but improves UX) -->
   <script>
-    // Simple client-side email validation fallback
-    document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
+    const form = document.getElementById('mc-embedded-subscribe-form');
+    const iframe = document.querySelector('[name="mc-hidden-iframe"]');
+    const errorDiv = document.getElementById('mce-error-response');
+    let submitted = false;
+
+    form.addEventListener('submit', function(e) {
       const email = document.getElementById('mce-EMAIL').value;
-      const errorDiv = document.getElementById('mce-error-response');
-      const successDiv = document.getElementById('mce-success-response');
 
       if (!email || !email.includes('@')) {
         e.preventDefault();
@@ -847,15 +854,15 @@
       }
 
       errorDiv.style.display = 'none';
+      submitted = true;
 
-      // If using actual Mailchimp, the form will submit to their server
-      // For a purely client-side demo (before Mailchimp is configured),
-      // uncomment the lines below to show a success message locally:
-      //
-      // e.preventDefault();
-      // successDiv.style.display = 'block';
-      // successDiv.textContent = 'You are on the list. We will be in touch.';
-      // document.getElementById('mce-EMAIL').value = '';
+      // Show success after a short delay (time for iframe to load)
+      setTimeout(function() {
+        if (submitted) {
+          document.getElementById('waitlist-form-wrap').style.display = 'none';
+          document.getElementById('waitlist-success').style.display = 'block';
+        }
+      }, 1200);
     });
   </script>
 
